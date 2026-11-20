@@ -8,7 +8,7 @@ Easyconcepts is a home for ideas made real: useful digital experiences, practica
 .
 ├── index.html                 # Easyconcepts landing page and Games section
 ├── css/
-│   ├── styles.css             # Shared site styles
+│   ├── styles.css             # Shared site styles 
 │   └── game.css               # Game-specific presentation
 ├── js/
 │   ├── game.js                # Game rules, UI, and lifecycle
