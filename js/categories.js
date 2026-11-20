@@ -1,7 +1,8 @@
 export const CATEGORY_FILES = [
   { name: 'Animals', file: 'animals.json' },
   { name: 'Bollywood Movies', file: 'bollywood.json' },
-  { name: 'Technology', file: 'technology.json' }
+  { name: 'Technology', file: 'technology.json' },
+  { name: 'Generic Words', file: 'genericwords' }
 ];
 
 export async function loadCategories() {

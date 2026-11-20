@@ -1,16 +1,14 @@
-/* Final display tuning: larger ownership labels and long words stay readable. */
+/* Consistent board typography: size each word from the tile's base font, not its character count. */
+.game-page .word-cell .word{display:block;width:100%;max-width:100%;font-size:inherit!important;line-height:1.08;overflow-wrap:anywhere;word-break:normal;text-wrap:balance}
+.game-page .word-cell{hyphens:auto}
+/* Maintain the same readable brand mark and team-label styling in moderator and player views. */
 .game-page .game-brand{display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;color:#fff;font-size:clamp(12px,1vw,15px);font-weight:800;letter-spacing:-.04em;white-space:nowrap}
 .game-page .game-brand .brand-mark{display:grid;place-items:center;width:clamp(26px,2vw,34px);height:clamp(26px,2vw,34px);border-radius:8px;background:var(--lime);color:#12140f;font-family:'Manrope',system-ui,sans-serif;font-size:clamp(18px,1.6vw,23px);line-height:1;font-weight:800}
 .game-page .game-brand .brand-mark span{color:#718c38;font-size:inherit}
 .game-page .score-team span{font-size:clamp(14px,1.25vw,19px);font-weight:700;letter-spacing:.08em;color:#fff}
-/* Ten-letter words such as Salamander keep the same large size as short words like Judge. */
-.game-page .word-cell.word-medium .word{font-size:1em}
-.game-page .word-cell.word-long .word{font-size:.88em}
-.game-page .word-cell.word-extra-long .word{font-size:.74em}
-.game-page .word-cell .word-tag{font-size:clamp(11px,1vw,15px);font-weight:700}
 .game-page .game-brand-home{position:absolute;top:clamp(20px,4vh,36px);left:clamp(22px,6vw,90px)}
 @media(max-width:760px){
-  .game-page .game-header>.game-brand{font-size:0}
-  .game-page .game-header>.game-brand .brand-mark{width:28px;height:28px;font-size:19px}
-  .game-page .score-team span{font-size:clamp(9px,2vw,12px)}
+ .game-page .game-header>.game-brand{font-size:0}
+ .game-page .game-header>.game-brand .brand-mark{width:28px;height:28px;font-size:19px}
+ .game-page .score-team span{font-size:clamp(9px,2vw,12px)}
 }
