@@ -10,11 +10,12 @@
   <link rel="stylesheet" href="../../css/game.css">
   <link rel="stylesheet" href="../../css/game-display.css">
   <link rel="stylesheet" href="../../css/game-projector.css">
+  <link rel="stylesheet" href="../../css/game-refinements.css">
 </head>
 <body class="game-page player">
   <main class="game-shell">
     <section id="chooser" class="game-overlay">
-      <a class="game-brand" href="../../">← easyconcepts</a>
+      <a class="game-brand game-brand-home" href="../../" aria-label="Easyconcepts home"><span class="brand-mark">e<span>.</span></span><span>easyconcepts</span></a>
       <div class="chooser-content"><p class="game-kicker">EASYCONCEPTS PLAYGROUND</p><h1>Codewords<span>.</span></h1><p class="game-intro">Give clues, find your team’s words, and avoid the assassin. Choose your screen to get started.</p>
         <div class="role-choices"><button class="role-choice" data-role="moderator">Moderator <small>See the key · reveal and score words</small></button><button class="role-choice" data-role="player">Player <small>Words only · display on the big screen</small></button></div>
       </div>
@@ -22,7 +23,7 @@
     </section>
     <section id="app" class="game-app" hidden>
       <header class="game-header">
-        <a class="game-brand" href="../../">e<span>.</span> easyconcepts</a>
+        <a class="game-brand" href="../../" aria-label="Easyconcepts home"><span class="brand-mark">e<span>.</span></span><span>easyconcepts</span></a>
         <div id="team1" class="score-team team-one"><span>TEAM 1</span><strong id="s1">0</strong></div>
         <div class="game-status"><div id="status" aria-live="polite">&nbsp;</div><div id="target"></div></div>
         <div id="team2" class="score-team team-two"><span>TEAM 2</span><strong id="s2">0</strong></div>
