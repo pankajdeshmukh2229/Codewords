@@ -1,0 +1,48 @@
+/*
+ * Board-only final typography tuning.
+ * Header, status, targets, and controls keep the Easyconcepts theme.
+ */
+.game-page .word-grid{overflow:hidden}
+.game-page .word-cell{overflow:hidden}
+.game-page .word-cell .word{
+  display:block;
+  width:100%;
+  max-width:100%;
+  font-size:1em;
+  font-weight:600;
+  line-height:1.08;
+  text-wrap:balance;
+  overflow-wrap:anywhere;
+  word-break:normal;
+  hyphens:auto;
+}
+
+/* Keep concise owner labels small; they are not the main word. */
+.game-page.moderator .word-cell .word-tag{
+  font-size:clamp(.48rem,.6vw,.72rem);
+  line-height:1;
+  opacity:.85;
+}
+
+/* Reveal states keep the original theme but do not make struck text bold. */
+.game-page .word-cell.revealed,
+.game-page.moderator .word-cell.revealed,
+.game-page .word-cell.revealed .word{
+  font-weight:400;
+}
+.game-page .word-cell.revealed .word{text-decoration-thickness:2px}
+
+/* Remove character-count font reductions: browser and tile size now control fit. */
+.game-page .word-cell.word-medium .word,
+.game-page .word-cell.word-long .word,
+.game-page .word-cell.word-extra-long .word{font-size:1em}
+
+@media(min-width:701px){
+  .game-page .word-cell{font-size:clamp(1.35rem,min(3.25vw,5.8vh),4.2rem)}
+  .game-page.moderator .word-cell{font-size:clamp(1.25rem,min(2.75vw,4.9vh),3.35rem)}
+}
+
+@media(max-width:700px){
+  .game-page .word-cell,
+  .game-page.moderator .word-cell{font-size:clamp(.95rem,min(4.6vw,3.4vh),1.85rem)}
+}
