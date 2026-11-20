@@ -1,33 +1,45 @@
-# Game of Words
+# Easyconcepts
 
-A browser-based Codewords-style game with a moderator screen, player display, themed word lists, scoring, and optional Firebase-powered shared games and feedback.
+Easyconcepts is a home for ideas made real: useful digital experiences, practical tools, and playful experiments. This repository is a small, static website designed to grow modularly.
 
-## Play
+## Project structure
 
-Open `index.html` (or publish the repository with GitHub Pages) and choose **Moderator** or **Player**. A game can always be played locally without a session code or account. In local play the player view shares state between tabs on the same browser using local storage.
+```text
+.
+├── index.html                 # Easyconcepts landing page and Games section
+├── css/
+│   ├── styles.css             # Shared site styles
+│   └── game.css               # Game-specific presentation
+├── js/
+│   ├── game.js                # Game rules, UI, and lifecycle
+│   ├── categories.js          # Loads and validates category data
+│   └── storage.js             # Browser persistence and cross-window updates
+├── data/
+│   ├── animals.json
+│   ├── bollywood.json
+│   └── technology.json
+├── games/
+│   └── codewords/
+│       └── index.html         # Game of Words app
+└── assets/                    # Future images, icons, and other static assets
+```
 
-For an online game, choose **Moderator**, then **Create shared game**. Share the generated invite link or six-character code. Players open the link or enter the code; no account or player name is required. The moderator controls the board, and the player screens follow it in real time. Active players are counted while connected. Shared sessions are configured to expire after 30 days.
+## Run locally
 
-The **Feedback** form accepts a 1–5 rating and comments, with optional name and email. Feedback is configured for one-year retention.
+The game uses JavaScript modules and fetches JSON data, so serve the repository over HTTP rather than opening the files directly. For example, from the repository root:
 
-## Firebase setup
+```sh
+python3 -m http.server 8000
+```
 
-The browser Firebase configuration is included in `index.html`. Firebase web API keys are identifiers for the project, not server credentials; access is controlled by Firebase Authentication and security rules. Do not put service-account private keys in browser code.
+Then visit `http://localhost:8000/` for the Easyconcepts home page or `http://localhost:8000/games/codewords/` to open the game.
 
-1. In Firebase Console, confirm project `easyconcepts-c6de3` and register/confirm the web app.
-2. In **Authentication → Sign-in method**, enable **Anonymous**.
-3. Create a **Cloud Firestore** database and a **Realtime Database**.
-4. Publish `firestore.rules` as the Firestore security rules and `database.rules.json` as the Realtime Database rules.
-5. In Firestore **TTL**, enable automatic deletion on `sessions.expiresAt` and `feedback.deleteAt`. TTL cleanup is asynchronous (it may take up to about a day after expiration).
-6. Publish the page over HTTPS (GitHub Pages is supported).
+## Game of Words
 
-Anonymous Authentication is needed for connected sessions and feedback. If Firebase is unavailable, local gameplay remains playable; a feedback submission cannot be stored without Firebase.
+From the home page, find **Games → Game of Words**. Choose **Moderator** to see the key and score words, or **Player** for the public display. Open the player screen from the moderator controls. Both views synchronize through local storage on the same browser origin; for example, use two windows on the same device and browser profile.
 
-## Data and access
+Each board contains 25 distinct words: 10 for each team, one assassin, and four neutral. A team-owned word scores 10 points. An assassin subtracts 20 points from the team in play and lowers the winning target to 80. The available data lists are Animals, Bollywood Movies, and Technology; add another JSON list and register it in `js/categories.js` to extend the game.
 
-- `sessions/{code}` stores the shared board state and 30-day expiration timestamp. Only the anonymous account that created a session can change the board.
-- `sessions/{code}/private/key` stores the moderator's answer key and is readable only by that session's creator. The public game document deliberately omits the key.
-- Realtime Database `presence/{code}/{uid}` records connected users and removes entries on disconnect.
-- `feedback/{id}` stores rating, comments, optional name/email, and a one-year TTL timestamp. Feedback is not readable from the client after submission.
+## Publish with GitHub Pages
 
-Feedback is retained for one year by the Firestore TTL policy; Firebase TTL deletion is not an exact-to-the-second deadline. Configure Firebase billing/quotas and appropriate data/privacy notices for your audience before public launch.
+In **Settings → Pages**, select **Deploy from a branch**, choose `main` and `/(root)`, and save. The site entry point is the root `index.html`; the game is linked under `/games/codewords/`. GitHub Pages may take a few minutes to deploy after the source is selected.

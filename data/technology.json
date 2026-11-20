@@ -1,0 +1,12 @@
+[
+  "Keyboard", "Monitor", "Router", "Firewall", "Database", "Server", "Laptop", "Tablet", "Printer", "Scanner",
+  "Webcam", "Microphone", "Speaker", "Processor", "Memory", "Storage", "Backup", "Password", "Encryption", "Algorithm",
+  "Software", "Hardware", "Network", "Bandwidth", "Download", "Upload", "Browser", "Website", "Domain", "Protocol",
+  "Interface", "Terminal", "Compiler", "Debugger", "Repository", "Version", "Deployment", "Container", "Cluster", "Cloud",
+  "Satellite", "Antenna", "Bluetooth", "Wireless", "Charger", "Battery", "Circuit", "Transistor", "Semiconductor", "Robot",
+  "Drone", "Sensor", "Automation", "Simulation", "Analytics", "Dashboard", "Spreadsheet", "Presentation", "Document", "Folder",
+  "Shortcut", "Clipboard", "Cursor", "Scrollbar", "Toolbar", "Notification", "Subscription", "Streaming", "Podcast", "Bookmark",
+  "Hyperlink", "Emoji", "Avatar", "Profile", "Timeline", "Newsfeed", "Messaging", "Videocall", "Headset", "Projector", "Whiteboard",
+  "Barcode", "Hologram", "Biometric", "Fingerprint", "Blockchain", "Cryptocurrency", "Firmware", "Kernel", "Cache", "Bugfix",
+  "Patch", "Prototype", "Blueprint", "Gadget", "Widget", "Console", "Joystick", "Bitrate", "Codec"
+]
