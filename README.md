@@ -22,7 +22,7 @@ Open the Games section on the homepage or go directly to `/games/codewords/`. Ch
 
 Boards contain 25 distinct words: 10 for each team, one assassin, and four neutral. Team-owned words score 10 points. An assassin subtracts 20 points from the team in play and lowers the target to 80. The word-list dropdown includes Animals, Bollywood Movies, Technology, and Generic Words. Generic Words loads from `data/genericwords`; add another JSON array and register its file in `js/categories.js` to add a category.
 
-The Codewords board uses consistent tile text sizing so words such as “Salamander” stay as large as short words when they fit, while wrapping inside the tile when needed. The board and labels are styled for projector/TV viewing and adapt for smaller screens.
+Codewords keeps every word on one line and automatically shrinks long words to fit their tiles. Tile text grows for large projector/TV displays, revealed words stay bold with a normal-weight strike-through, and moderator team tags remain small. The game page uses shared `styles.css`, base `game.css`, and one game-specific responsive stylesheet.
 
 ## GitHub Pages
 

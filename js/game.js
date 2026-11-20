@@ -1,4 +1,5 @@
 import { loadCategories } from './categories.js';
+import { fitBoardWords } from './fit-board-words.js';
 import { isValidGame, readGame, subscribeToGame, watchGame, writeGame } from './storage.js';
 
 const COUNTS = { t1: 10, t2: 10, assassin: 1, neutral: 4 };
@@ -19,7 +20,50 @@ function isLocked() { return Boolean(state && !state.won1 && !state.won2 && stat
 function setState(next, persist = false) { state = next; if (persist && !writeGame(state)) elements.status.textContent = 'This browser could not save the game. Check storage settings.'; render(); }
 function award(team, points) { const scoreKey = team === 1 ? 's1' : 's2'; const wonKey = team === 1 ? 'won1' : 'won2'; if (state[wonKey]) return; state[scoreKey] += points; if (state[scoreKey] >= state.target) state[wonKey] = true; }
 function reveal(index, assassinTeam = null) { if (!state || state.revealed[index] || state.won1 || state.won2) return; const owner = state.owners[index]; if (owner === 'assassin' && assassinTeam === null) { pendingAssassin = index; elements.assassinModal.hidden = false; return; } state.revealed[index] = true; if (owner === 't1') { award(1, POINTS); state.message = ''; } else if (owner === 't2') { award(2, POINTS); state.message = ''; } else if (owner === 'neutral') state.message = 'Neutral word — no score.'; else { if (assassinTeam === 1) state.s1 -= ASSASSIN_PENALTY; else state.s2 -= ASSASSIN_PENALTY; state.target = ASSASSIN_TARGET; state.message = `Assassin hit by Team ${assassinTeam}. Minus ${ASSASSIN_PENALTY}. Target is now ${ASSASSIN_TARGET}.`; if (state.s1 >= state.target) state.won1 = true; if (state.s2 >= state.target) state.won2 = true; } setState(state, true); }
-function render() { if (!state) return; if (elements.grid.children.length !== 25) { elements.grid.replaceChildren(...Array.from({ length: 25 }, (_, index) => { const cell = document.createElement('button'); cell.type = 'button'; cell.className = 'word-cell'; cell.dataset.index = String(index); const tag = document.createElement('span'); tag.className = 'word-tag'; const word = document.createElement('span'); word.className = 'word'; cell.append(tag, word); return cell; })); } for (let index = 0; index < 25; index++) { const cell = elements.grid.children[index]; const owner = state.owners[index]; const word = state.words[index]; const revealed = Boolean(state.revealed[index]); const showKey = role === 'moderator' || revealed; const lengthClass = word.length > 20 ? 'word-extra-long' : word.length > 14 ? 'word-long' : word.length > 9 ? 'word-medium' : ''; cell.className = `word-cell${showKey ? ` key-${owner}` : ''}${revealed ? ' revealed' : ''}${lengthClass ? ` ${lengthClass}` : ''}`; cell.querySelector('.word').textContent = word; cell.querySelector('.word-tag').textContent = role === 'moderator' ? OWNER_LABELS[owner] : ''; cell.disabled = role !== 'moderator' || revealed || state.won1 || state.won2; cell.setAttribute('aria-label', role === 'moderator' ? `${word}, ${OWNER_LABELS[owner]}${revealed ? ', revealed' : ''}` : revealed ? `${word}, revealed` : `Word ${index + 1}`); } elements.s1.textContent = state.won1 ? 'WON' : String(state.s1); elements.s2.textContent = state.won2 ? 'WON' : String(state.s2); elements.team1.classList.toggle('winner', state.won1); elements.team2.classList.toggle('winner', state.won2); elements.status.className = state.message.startsWith('Assassin') || state.won1 || state.won2 ? 'alert' : ''; elements.status.textContent = state.won1 || state.won2 ? (state.won1 && state.won2 ? 'Both teams reached the target.' : `Team ${state.won1 ? '1' : '2'} wins.`) : state.message || '\u00a0'; elements.target.textContent = `${state.listName} · target ${state.target}`; if (role === 'moderator') { elements.listSel.value = String(state.listIndex); elements.listSel.disabled = isLocked(); elements.remaining.textContent = `${state.revealed.filter(value => !value).length} of 25 words left${isLocked() ? ' · list locked during play' : ''}`; } }
+function render() {
+  if (!state) return;
+  if (elements.grid.children.length !== 25) {
+    elements.grid.replaceChildren(...Array.from({ length: 25 }, (_, index) => {
+      const cell = document.createElement('button');
+      cell.type = 'button';
+      cell.className = 'word-cell';
+      cell.dataset.index = String(index);
+      const tag = document.createElement('span');
+      tag.className = 'word-tag';
+      const word = document.createElement('span');
+      word.className = 'word';
+      cell.append(tag, word);
+      return cell;
+    }));
+  }
+  for (let index = 0; index < 25; index++) {
+    const cell = elements.grid.children[index];
+    const owner = state.owners[index];
+    const word = state.words[index];
+    const revealed = Boolean(state.revealed[index]);
+    const showKey = role === 'moderator' || revealed;
+    cell.className = `word-cell${showKey ? ` key-${owner}` : ''}${revealed ? ' revealed' : ''}`;
+    cell.querySelector('.word').textContent = word;
+    cell.querySelector('.word-tag').textContent = role === 'moderator' ? OWNER_LABELS[owner] : '';
+    cell.disabled = role !== 'moderator' || revealed || state.won1 || state.won2;
+    cell.setAttribute('aria-label', role === 'moderator' ? `${word}, ${OWNER_LABELS[owner]}${revealed ? ', revealed' : ''}` : revealed ? `${word}, revealed` : `Word ${index + 1}`);
+  }
+  elements.s1.textContent = state.won1 ? 'WON' : String(state.s1);
+  elements.s2.textContent = state.won2 ? 'WON' : String(state.s2);
+  elements.team1.classList.toggle('winner', state.won1);
+  elements.team2.classList.toggle('winner', state.won2);
+  elements.status.className = state.message.startsWith('Assassin') || state.won1 || state.won2 ? 'alert' : '';
+  elements.status.textContent = state.won1 || state.won2 ? (state.won1 && state.won2 ? 'Both teams reached the target.' : `Team ${state.won1 ? '1' : '2'} wins.`) : state.message || '\u00a0';
+  elements.target.textContent = `${state.listName} · target ${state.target}`;
+  if (role === 'moderator') {
+    elements.listSel.value = String(state.listIndex);
+    elements.listSel.disabled = isLocked();
+    elements.remaining.textContent = `${state.revealed.filter(value => !value).length} of 25 words left${isLocked() ? ' · list locked during play' : ''}`;
+  }
+  fitBoardWords(elements.grid);
+}
 function start(selectedRole) { role = selectedRole; document.body.classList.toggle('moderator', role === 'moderator'); document.body.classList.toggle('player', role === 'player'); elements.chooser.hidden = true; elements.app.hidden = false; elements.controls.hidden = role !== 'moderator'; if (role === 'moderator') { if (!state) state = readGame() ?? makeGame(0); setState(state, true); } else { state = readGame() ?? makeGame(0); render(); } subscribeToGame(next => { if (role === 'player') setState(next); }); watchGame(next => { if (role === 'player') setState(next); }); }
 function showError(error) { console.error(error); elements.chooser.querySelector('.game-intro').textContent = `The game could not start: ${error.message} Check that the game is served over HTTP and try reloading.`; }
+window.addEventListener('resize', () => fitBoardWords(elements.grid));
+document.fonts.ready.then(() => fitBoardWords(elements.grid));
 try { categories = await loadCategories(); elements.listSel.replaceChildren(...categories.map((category, index) => { const option = document.createElement('option'); option.value = String(index); option.textContent = `${category.name} (${category.words.length} words)`; return option; })); document.querySelectorAll('#chooser [data-role]').forEach(button => button.addEventListener('click', () => { location.hash = button.dataset.role; start(button.dataset.role); })); elements.grid.addEventListener('click', event => { if (role !== 'moderator') return; const cell = event.target.closest('.word-cell'); if (cell) reveal(Number(cell.dataset.index)); }); elements.newGame.addEventListener('click', () => setState(makeGame(Number(elements.listSel.value)), true)); elements.listSel.addEventListener('change', () => { if (isLocked()) { render(); return; } setState(makeGame(Number(elements.listSel.value)), true); }); elements.openPlayer.addEventListener('click', () => window.open(`${location.href.split('#')[0]}#player`, 'gowPlayer')); document.querySelectorAll('#assassinModal [data-team]').forEach(button => button.addEventListener('click', () => { elements.assassinModal.hidden = true; const index = pendingAssassin; pendingAssassin = -1; if (index >= 0) reveal(index, Number(button.dataset.team)); })); const hashRole = location.hash.slice(1).toLowerCase(); if (hashRole === 'moderator' || hashRole === 'player') start(hashRole); } catch (error) { showError(error); }

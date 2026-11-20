@@ -1,48 +1,62 @@
-/*
- * Board-only final typography tuning.
- * Header, status, targets, and controls keep the Easyconcepts theme.
- */
-.game-page .word-grid{overflow:hidden}
-.game-page .word-cell{overflow:hidden}
-.game-page .word-cell .word{
-  display:block;
-  width:100%;
-  max-width:100%;
-  font-size:1em;
-  font-weight:600;
-  line-height:1.08;
-  text-wrap:balance;
-  overflow-wrap:anywhere;
-  word-break:normal;
-  hyphens:auto;
+body.game-page{--muted:#f0f2f4;--dim:#e0e3e7;--ink:#fff;color:#fff}
+.game-header{height:auto;min-height:clamp(82px,11vh,132px);flex:0 0 auto;gap:clamp(12px,2.4vw,36px);padding:10px clamp(14px,2.5vw,36px)}
+.game-page .game-brand{display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;color:#fff;font-size:clamp(12px,1vw,15px);font-weight:800;letter-spacing:-.04em;white-space:nowrap}
+.game-page .game-brand .brand-mark{display:grid;place-items:center;width:clamp(26px,2vw,34px);height:clamp(26px,2vw,34px);border-radius:8px;background:var(--lime);color:#12140f;font-family:'Manrope',system-ui,sans-serif;font-size:clamp(18px,1.6vw,23px);line-height:1;font-weight:800}
+.game-page .game-brand .brand-mark span{color:#718c38;font-size:inherit}
+.game-page .game-brand-home{position:absolute;top:clamp(20px,4vh,36px);left:clamp(22px,6vw,90px)}
+.game-page .score-team span{font-size:clamp(12px,1.1vw,17px);font-weight:700;letter-spacing:.08em;color:#fff}
+.score-team{gap:7px}
+.score-team strong{font-size:clamp(24px,4vh,46px)}
+.game-status{font-size:clamp(12px,1.15vw,18px);color:#fff;line-height:1.25}
+.game-status #target{font-size:clamp(10px,.9vw,14px);color:#e0e3e7;margin-top:3px}
+.home-link{font-size:clamp(11px,.95vw,15px);color:#fff;white-space:nowrap}
+.word-grid{gap:clamp(7px,.8vw,13px);padding:clamp(9px,1.1vw,18px)}
+.game-page .word-cell{font-size:clamp(22px,min(4.5vw,9vh),11rem);font-weight:750;line-height:1.05;padding:clamp(8px,1vw,16px);border-radius:8px;color:#fff;white-space:nowrap;overflow:hidden}
+.game-page .word-cell .word{display:block;width:100%;max-width:100%;font-size:inherit;line-height:1.05;white-space:nowrap;overflow-wrap:normal;word-break:normal;hyphens:none}
+.game-page .word-cell .word-tag{font-size:clamp(7px,.65vw,10px);line-height:1;left:clamp(6px,.75vw,12px);top:clamp(5px,.6vw,10px);opacity:.85}
+.game-page .word-cell.revealed .word{font-weight:800;text-decoration-line:line-through;text-decoration-thickness:from-font}
+.player .word-cell{font-weight:800;text-shadow:0 1px 2px #0005}
+.game-controls{min-height:68px;padding:10px clamp(12px,1.7vw,24px);gap:10px}
+.game-controls label,.remaining{font-size:clamp(10px,.85vw,14px);color:#fff}
+.game-controls select,.game-button{font-size:clamp(11px,.9vw,15px);padding:9px 12px;color:#fff}
+.game-controls select{min-width:clamp(150px,17vw,250px)}
+.game-controls .button-accent{color:#111}
+.role-choice{font-size:18px}
+.role-choice small{font-size:14px;color:#f0f2f4}
+.game-intro{font-size:18px;color:#f0f2f4}
+.game-footnote,.game-kicker{font-size:12px;color:#e5e8eb}
+.game-kicker{color:var(--lime)}
+.assassin-dialog>p:not(.game-kicker){font-size:18px;color:#f0f2f4}
+.team-pick{font-size:18px}
+
+@media(max-width:760px){
+  .game-header{height:64px;min-height:0;padding:5px 8px;gap:7px}
+  .game-header>.game-brand{font-size:0}
+  .game-header>.game-brand .brand-mark{width:28px;height:28px;font-size:19px}
+  .score-team{gap:4px}
+  .game-page .score-team span{font-size:8px}
+  .score-team strong{font-size:clamp(20px,5vw,27px)}
+  .game-status{font-size:clamp(10px,2.5vw,13px)}
+  .game-status #target{font-size:9px}
+  .home-link{display:none}
+  .word-grid{gap:5px;padding:6px}
+  .game-page .word-cell{font-size:clamp(15px,min(4vw,3.8vh),28px);padding:4px;border-radius:5px}
+  .game-page .word-cell .word-tag{font-size:6px;left:4px;top:3px}
+  .game-controls{min-height:54px;padding:5px;gap:5px}
+  .game-controls label,.remaining{font-size:9px}
+  .game-controls select,.game-button{font-size:10px;padding:6px}
+  .game-controls select{min-width:105px}
+  .game-page .game-header>.game-brand{font-size:0}
+  .game-page .score-team span{font-size:clamp(9px,2vw,12px)}
 }
 
-/* Keep concise owner labels small; they are not the main word. */
-.game-page.moderator .word-cell .word-tag{
-  font-size:clamp(.48rem,.6vw,.72rem);
-  line-height:1;
-  opacity:.85;
-}
-
-/* Reveal states keep the original theme but do not make struck text bold. */
-.game-page .word-cell.revealed,
-.game-page.moderator .word-cell.revealed,
-.game-page .word-cell.revealed .word{
-  font-weight:400;
-}
-.game-page .word-cell.revealed .word{text-decoration-thickness:2px}
-
-/* Remove character-count font reductions: browser and tile size now control fit. */
-.game-page .word-cell.word-medium .word,
-.game-page .word-cell.word-long .word,
-.game-page .word-cell.word-extra-long .word{font-size:1em}
-
-@media(min-width:701px){
-  .game-page .word-cell{font-size:clamp(1.35rem,min(3.25vw,5.8vh),4.2rem)}
-  .game-page.moderator .word-cell{font-size:clamp(1.25rem,min(2.75vw,4.9vh),3.35rem)}
-}
-
-@media(max-width:700px){
-  .game-page .word-cell,
-  .game-page.moderator .word-cell{font-size:clamp(.95rem,min(4.6vw,3.4vh),1.85rem)}
+@media(max-width:430px){
+  .game-header{height:58px}
+  .score-team{flex-direction:column;align-items:center;gap:0}
+  .score-team strong{font-size:18px}
+  .game-status{font-size:9px}
+  .game-status #target{font-size:8px}
+  .game-header{padding:0 8px}
+  .game-page .word-cell{font-size:clamp(13px,3.8vw,17px)}
+  .game-page .score-team span{font-size:clamp(9px,2vw,12px)}
 }
