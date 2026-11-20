@@ -1,89 +1,19 @@
-/*
- * Original Codewords board theme for the 25-word grid only.
- * The Easyconcepts header, controls, and surrounding page chrome remain unchanged.
- */
-.game-page .word-grid{
-  gap:.55rem;
-  padding:.7rem;
-  background:#101218;
-}
-
+/* Fit long words on one line inside the 25-word tiles. */
 .game-page .word-cell{
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  padding:.4rem;
-  border-radius:12px;
-  background:#191c25;
-  border:1px solid #2a2f3d;
-  color:#f2f4f8;
-  font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
-  font-size:clamp(1.15rem,min(3.1vw,5.6vh),4rem);
-  font-weight:600;
-  letter-spacing:.02em;
-  line-height:1.15;
-  overflow-wrap:break-word;
-  word-break:break-word;
-  hyphens:auto;
-  user-select:none;
-  text-shadow:none;
-  transition:transform .12s,box-shadow .12s,background .12s;
+  overflow-wrap:normal;
+  word-break:normal;
+  white-space:nowrap;
 }
 
-.game-page.moderator .word-cell{
-  cursor:pointer;
-  font-size:clamp(1.08rem,min(2.6vw,4.7vh),3.1rem);
+.game-page .word-cell .word{
+  display:block;
+  max-width:100%;
+  white-space:nowrap;
+  line-height:1.05;
 }
 
-.game-page.moderator .word-cell:hover:not(.revealed){
-  transform:translateY(-2px);
-  box-shadow:0 6px 18px rgba(0,0,0,.45);
-}
+.game-page .word-cell.word-medium .word{font-size:.92em}
+.game-page .word-cell.word-long .word{font-size:.78em}
+.game-page .word-cell.word-extra-long .word{font-size:.68em}
 
-.game-page .word-cell.word-medium .word{font-size:.82em}
-.game-page .word-cell.word-long .word{font-size:.66em}
-.game-page .word-cell.word-extra-long .word{font-size:.52em}
-
-.game-page.moderator .word-cell.key-t1,
-.game-page.moderator .word-cell.key-t2,
-.game-page.moderator .word-cell.key-assassin,
-.game-page.moderator .word-cell.key-neutral{
-  opacity:1;
-}
-
-.game-page.moderator .word-cell.key-t1{background:#4a3a10;border-color:#f0a500;color:#ffdf9a}
-.game-page.moderator .word-cell.key-t2{background:#12384d;border-color:#3fa9dd;color:#bfe6fb}
-.game-page.moderator .word-cell.key-assassin{background:#4d1717;border-color:#d64545;color:#ffc7c7}
-.game-page.moderator .word-cell.key-neutral{background:#23262f;border-color:#3a3f4c;color:#c3c8d2}
-
-.game-page .word-cell.revealed{font-weight:700}
-.game-page .word-cell.revealed .word{text-decoration:line-through;text-decoration-thickness:2px}
-.game-page .word-cell.revealed.key-t1{background:#f0a500;border-color:#f0a500;color:#221900}
-.game-page .word-cell.revealed.key-t2{background:#3fa9dd;border-color:#3fa9dd;color:#04202e}
-.game-page .word-cell.revealed.key-assassin{background:#d64545;border-color:#d64545;color:#2a0505}
-.game-page .word-cell.revealed.key-neutral{background:#7e8696;border-color:#7e8696;color:#15181d}
-.game-page.moderator .word-cell.revealed{opacity:.5}
-
-.game-page .word-cell .word-tag{
-  position:absolute;
-  top:.3rem;
-  left:.45rem;
-  font-size:.6rem;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  opacity:.75;
-  font-weight:700;
-}
-.game-page.player .word-cell .word-tag{display:none}
-.game-page .word-cell.revealed .word-tag{display:none}
-
-@media(max-width:700px){
-  .game-page .word-grid{gap:.35rem;padding:.4rem}
-  .game-page .word-cell,
-  .game-page.moderator .word-cell{font-size:clamp(.8rem,min(4.2vw,3.2vh),1.55rem);border-radius:8px}
-  .game-page .word-cell.word-medium .word{font-size:.82em}
-  .game-page .word-cell.word-long .word{font-size:.66em}
-  .game-page .word-cell.word-extra-long .word{font-size:.52em}
-}
+/* Fit measured text precisely to each tile after every render or resize. */
