@@ -1,0 +1,10 @@
+/* Stronger contrast and more comfortable reading sizes for the Easyconcepts site. */
+:root{--ink:#fff;--muted:#e2e4e6;--dim:#c1c4c8}
+body{font-size:18px;line-height:1.65;color:#fff}
+.site-nav,.hero-description,.intro-grid>p,.section-heading>p,.work-card p,.game-info>p:not(.eyebrow),.coming-soon{color:#e2e4e6}
+.eyebrow,.card-index,.site-footer{color:#d0d2d5}
+.site-header{background:rgba(16,17,20,.96)}
+.work-card h3,.game-info h3{color:#fff}
+.game-tags span{color:#f2f3f4}
+.muted-text{color:#c1c4c8}
+@media(max-width:560px){body{font-size:17px}}

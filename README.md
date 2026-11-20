@@ -8,8 +8,10 @@ Easyconcepts is a home for ideas made real: useful digital experiences, practica
 .
 ├── index.html                 # Easyconcepts landing page and Games section
 ├── css/
-│   ├── styles.css             # Shared site styles 
-│   └── game.css               # Game-specific presentation
+│   ├── styles.css             # Shared site styles
+│   ├── readability.css        # High contrast and larger site typography
+│   ├── game.css               # Game-specific presentation
+│   └── game-display.css       # Large type and high contrast for projection
 ├── js/
 │   ├── game.js                # Game rules, UI, and lifecycle
 │   ├── categories.js          # Loads and validates category data
@@ -20,7 +22,7 @@ Easyconcepts is a home for ideas made real: useful digital experiences, practica
 │   └── technology.json
 ├── games/
 │   └── codewords/
-│       └── index.html         # Game of Words app
+│       └── index.html         # Codewords game
 └── assets/                    # Future images, icons, and other static assets
 ```
 
@@ -32,14 +34,14 @@ The game uses JavaScript modules and fetches JSON data, so serve the repository 
 python3 -m http.server 8000
 ```
 
-Then visit `http://localhost:8000/` for the Easyconcepts home page or `http://localhost:8000/games/codewords/` to open the game.
+Then visit `http://localhost:8000/` for the Easyconcepts home page or `http://localhost:8000/games/codewords/` to open Codewords.
 
-## Game of Words
+## Codewords
 
-From the home page, find **Games → Game of Words**. Choose **Moderator** to see the key and score words, or **Player** for the public display. Open the player screen from the moderator controls. Both views synchronize through local storage on the same browser origin; for example, use two windows on the same device and browser profile.
+From the home page, find **Games → Codewords**. Choose **Moderator** to see the key and score words, or **Player** for the public display. Open the player screen from the moderator controls. Both views synchronize through local storage on the same browser origin; for example, use two windows on the same device and browser profile.
 
-Each board contains 25 distinct words: 10 for each team, one assassin, and four neutral. A team-owned word scores 10 points. An assassin subtracts 20 points from the team in play and lowers the winning target to 80. The available data lists are Animals, Bollywood Movies, and Technology; add another JSON list and register it in `js/categories.js` to extend the game.
+Each board contains 25 distinct words: 10 for each team, one assassin, and four neutral. A team-owned word scores 10 points. An assassin subtracts 20 points from the team in play and lowers the winning target to 80. The available data lists are Animals, Bollywood Movies, and Technology; add another JSON list and register it in `js/categories.js` to extend the game. Projection mode uses enlarged, high-contrast type so the board is easier to read on a TV or projector.
 
 ## Publish with GitHub Pages
 
-In **Settings → Pages**, select **Deploy from a branch**, choose `main` and `/(root)`, and save. The site entry point is the root `index.html`; the game is linked under `/games/codewords/`. GitHub Pages may take a few minutes to deploy after the source is selected.
+In **Settings → Pages**, select **Deploy from a branch**, choose `main` and `/(root)`, and save. The site entry point is the root `index.html`; Codewords is linked under `/games/codewords/`. GitHub Pages may take a few minutes to deploy after the source is selected.

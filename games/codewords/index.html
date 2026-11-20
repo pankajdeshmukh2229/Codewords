@@ -4,16 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101114">
-  <meta name="description" content="Play Game of Words, a team word-guessing game by Easyconcepts.">
-  <title>Game of Words — Easyconcepts</title>
+  <meta name="description" content="Play Codewords, a team word-guessing game by Easyconcepts.">
+  <title>Codewords — Easyconcepts</title>
   <link rel="stylesheet" href="../../css/styles.css">
   <link rel="stylesheet" href="../../css/game.css">
+  <link rel="stylesheet" href="../../css/game-display.css">
 </head>
 <body class="game-page player">
   <main class="game-shell">
     <section id="chooser" class="game-overlay">
       <a class="game-brand" href="../../">← easyconcepts</a>
-      <div class="chooser-content"><p class="game-kicker">EASYCONCEPTS PLAYGROUND</p><h1>Game of <span>Words.</span></h1><p class="game-intro">Give clues, find your team’s words, and avoid the assassin. Choose your screen to get started.</p>
+      <div class="chooser-content"><p class="game-kicker">EASYCONCEPTS PLAYGROUND</p><h1>Codewords<span>.</span></h1><p class="game-intro">Give clues, find your team’s words, and avoid the assassin. Choose your screen to get started.</p>
         <div class="role-choices"><button class="role-choice" data-role="moderator">Moderator <small>See the key · reveal and score words</small></button><button class="role-choice" data-role="player">Player <small>Words only · display on the big screen</small></button></div>
       </div>
       <span class="game-footnote">25 WORDS · 2 TEAMS · ONE ASSASSIN</span>
@@ -26,7 +27,7 @@
         <div id="team2" class="score-team team-two"><span>TEAM 2</span><strong id="s2">0</strong></div>
         <a class="home-link" href="../../">Back to site ↗</a>
       </header>
-      <main id="grid" class="word-grid" aria-label="Game board"></main>
+      <main id="grid" class="word-grid" aria-label="Codewords game board"></main>
       <footer id="controls" class="game-controls" hidden>
         <label for="listSel">Word list</label><select id="listSel"></select>
         <button id="newGame" class="game-button button-accent">New game</button><button id="openPlayer" class="game-button">Open player screen</button>
